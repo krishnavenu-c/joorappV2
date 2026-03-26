@@ -1052,7 +1052,7 @@ const CompanyClientsList = () => {
 
             <Row>
               <Col lg="4" md="5" className="mb-3">
-                <Card className="h-100 venu">
+                <Card className="h-100 venu-card">
                   <CardBody className="p-0">
                     <div className="p-3 border-bottom">
                       <div className="clients-table-toolbar_small">
