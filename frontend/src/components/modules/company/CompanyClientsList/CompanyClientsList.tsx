@@ -1049,9 +1049,10 @@ const CompanyClientsList = () => {
           </div>
         ) : (
           <>
+
             <Row>
               <Col lg="4" md="5" className="mb-3">
-                <Card className="h-100">
+                <Card className="h-100 venu">
                   <CardBody className="p-0">
                     <div className="p-3 border-bottom">
                       <div className="clients-table-toolbar_small">
