@@ -5,6 +5,7 @@
 import { useState, useMemo, useEffect, type MouseEvent } from 'react';
 import './CompanyClientsList.scss';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardBody,
@@ -15,12 +16,6 @@ import {
   Input,
   InputGroup,
   InputGroupText,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Label,
-  FormFeedback,
   Nav,
   NavItem,
   NavLink,
@@ -28,7 +23,6 @@ import {
   Dropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
 } from 'reactstrap';
 import Breadcrumbs from '../../../common/Breadcrumbs/Breadcrumbs';
 import Pagination from '../../../common/Pagination/Pagination';
@@ -485,18 +479,6 @@ const getAvatarColor = (name: string): string => {
 const formatAedAmount = (amount: number) =>
   `AED${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-const INCOME_CHART_MONTHS = [
-  'Sep 2025',
-  'Oct 2025',
-  'Nov 2025',
-  'Dec 2025',
-  'Jan 2026',
-  'Feb 2026',
-  'Mar 2026',
-] as const;
-
-const INCOME_CHART_Y_LABELS = ['5K', '4K', '3K', '2K', '1K', '0'] as const;
-
 type NewClientForm = {
   name: string;
   email: string;
@@ -527,6 +509,7 @@ const emptyNewClient = (): NewClientForm => ({
 
 const CompanyClientsList = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [clients, setClients] = useState<Client[]>(INITIAL_CLIENTS);
   const [currentPage, setCurrentPage] = useState(1);
@@ -975,7 +958,7 @@ const CompanyClientsList = () => {
                   </DropdownMenu>
                 </Dropdown>
                 <div className="clients-toolbar-actions">
-                  <Button color="primary" className="btn-rounded waves-effect d-inline-flex align-items-center waves-light btn btn-primary" onClick={handleOpenCreateModal}>
+                <Button color="primary" className="btn-rounded waves-effect d-inline-flex align-items-center waves-light btn btn-primary" onClick={() => navigate('/company/clients/create')}>
                     <i className="bx bx-plus me-1" />
                     {t('CompanyClientsList.newBtn')}
                   </Button>
@@ -1209,7 +1192,8 @@ const CompanyClientsList = () => {
                           </DropdownMenu>
                         </Dropdown>
                         <div className="clients-toolbar-actions">
-                          <Button color="primary" className="btn waves-effect d-inline-flex align-items-center waves-light btn-sm btn-primary" onClick={handleOpenCreateModal}>
+                          <Button color="primary" className="btn waves-effect d-inline-flex align-items-center waves-light btn-sm btn-primary" 
+                          onClick={() => navigate('/company/clients/create')}>
                             <i className="bx bx-plus fs-18" />
                           </Button>
                         </div>
@@ -1368,7 +1352,7 @@ const CompanyClientsList = () => {
 
                         {activeDetailTab === 'transactions' && (
                           displayClient ? (
-                            <CompanyClientOverview displayClient={displayClient} />
+                            <CompanyClientTransactions displayClient={displayClient} />
                           ) : (
                             <div className="detail-tab-placeholder">
                               <div className="p-3">
